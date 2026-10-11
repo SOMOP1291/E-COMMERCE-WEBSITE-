@@ -1,7 +1,12 @@
 /* ===== STEP 6: Supabase client — paste your own values ===== */
 const SUPABASE_URL='https://qyavtvskavebgwpyctvz.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5YXZ0dnNrYXZlYmd3cHljdHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzY0MDAsImV4cCI6MjEwNzMxMjQwMH0.OpqpkapIbjm6PxLpx3fl6nyBq1G6DwB1JRiFADyR_cA';
-const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{
+  auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+});
+
+const {data:{session}}=await sb.auth.getSession();
+if(!session){e.textContent='Your session expired. Please sign in again.';return}
 
 const P=[
 {id:1,n:"Meridian Automatic",c:"Watches",p:1250,r:4.9,k:"watch",a:["#25323f","#7e98b0"],t:"New",d:"39mm Swiss automatic, sapphire crystal, 80-hour power reserve."},
@@ -115,3 +120,4 @@ $('hart').innerHTML=art({k:'watch'});syncAcct();draw();
 /* session: runs on load and after Google redirects back */
 sb.auth.getSession().then(({data})=>fromSession(data.session));
 sb.auth.onAuthStateChange((_e,s)=>fromSession(s));
+
