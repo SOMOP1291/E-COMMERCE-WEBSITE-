@@ -1,5 +1,5 @@
 /* ===== STEP 6: Supabase client — paste your own values ===== */
-const SUPABASE_URL='qyavtvskavebgwpyctvz.supabase.co';
+const SUPABASE_URL='https://qyavtvskavebgwpyctvz.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5YXZ0dnNrYXZlYmd3cHljdHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE3MzY0MDAsImV4cCI6MjEwNzMxMjQwMH0.OpqpkapIbjm6PxLpx3fl6nyBq1G6DwB1JRiFADyR_cA';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
