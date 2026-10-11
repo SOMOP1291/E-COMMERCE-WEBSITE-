@@ -1,3 +1,8 @@
+/* ===== STEP 6: Supabase client — paste your own values ===== */
+const SUPABASE_URL='https://YOUR_REF.supabase.co';
+const SUPABASE_ANON_KEY='YOUR_ANON_PUBLIC_KEY';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
 const P=[
 {id:1,n:"Meridian Automatic",c:"Watches",p:1250,r:4.9,k:"watch",a:["#25323f","#7e98b0"],t:"New",d:"39mm Swiss automatic, sapphire crystal, 80-hour power reserve."},
 {id:2,n:"Solène Chronograph",c:"Watches",p:1890,r:4.8,k:"watch",a:["#3a2a22","#c9915b"],t:"Limited",d:"Rose-gold chronograph with a hand-finished guilloché dial."},
@@ -13,7 +18,7 @@ const grad=p=>`linear-gradient(135deg,${p.a[0]},${p.a[1]})`;
 const $=id=>document.getElementById(id), usd=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ls={g(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const S={cat:'All',q:'',sort:'f',cart:ls.g('ma_cart',{}),wish:ls.g('ma_wish',[]),user:ls.g('ma_user',null),promo:null,co:null};
+const S={cat:'All',q:'',sort:'f',cart:ls.g('ma_cart',{}),wish:ls.g('ma_wish',[]),user:null,promo:null,co:null};
 const save=()=>{ls.s('ma_cart',S.cart);ls.s('ma_wish',S.wish);ls.s('ma_user',S.user)};
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),2200)}
 function toggleTheme(){const r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'}
@@ -61,22 +66,26 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeM();closeCart(
 
 /* auth */
 function openAuth(next){S.next=next;M(`<h2 style="font-size:32px">Welcome to Maison Aurel</h2><p class="note">Sign in to save your bag, track orders and unlock VIP20.</p>
- <button class="btn" style="width:100%;margin:10px 0" onclick="signIn()">Continue with your account</button>
- <p class="note" style="text-align:center">or continue as a guest</p>
- <div class="f"><div class="full"><label>Name</label><input id="gn"></div><div class="full"><label>Email</label><input id="ge" type="email"></div></div><div class="err" id="ae"></div>
- <button class="btn o" style="width:100%" onclick="guest()">Continue as guest</button>`)}
-async function signIn(){let u=null;
- try{const U=await claude.use('user');if(U){const m=await U.me();u={name:m.name||'Member',email:m.email||'',vip:1}}}catch(e){}
- if(!u){$('ae').textContent='Account sign-in is unavailable here — use guest checkout below.';return}
- setUser(u)}
-function guest(){const n=$('gn').value.trim(),e=$('ge').value.trim();if(!n||!/^\S+@\S+\.\S+$/.test(e)){$('ae').textContent='Enter a name and valid email.';return}setUser({name:n,email:e,vip:1})}
+ <button class="btn" style="width:100%;margin:14px 0" onclick="signIn()">Continue with Google</button><div class="err" id="ae"></div>`)}
+async function signIn(){
+ const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});
+ if(error&&$('ae'))$('ae').textContent=error.message}
+async function signOut(){await sb.auth.signOut();closeM();toast('Signed out')}
+function fromSession(s){
+ if(!s){S.user=null;syncAcct();return}
+ const m=s.user.user_metadata||{};
+ S.user={id:s.user.id,name:m.full_name||m.name||'Member',email:s.user.email||'',vip:1};
+ syncAcct()}
 function setUser(u){S.user=u;save();syncAcct();closeM();toast('Welcome, '+u.name.split(' ')[0]);if(S.next){const f=S.next;S.next=null;f()}}
 function syncAcct(){$('acct').textContent=S.user?S.user.name.split(' ')[0]:'Sign in'}
 function openAcct(){if(!S.user)return openAuth();
  M(`<h2 style="font-size:32px">${esc(S.user.name)}</h2><p class="note">${esc(S.user.email||'Signed in')}</p><p>VIP perk unlocked: code <b>VIP20</b> (20% off).</p>
- <button class="btn" onclick="showOrders()">My orders</button> <button class="btn o" onclick="S.user=null;save();syncAcct();closeM();toast('Signed out')">Sign out</button>`)}
-function showOrders(){const o=ls.g('ma_orders',[]);
- M(`<h2 style="font-size:32px">Orders</h2>${o.length?o.map(x=>`<div class="li"><div style="flex:1"><b>#${x.id}</b><br><span class="note">${x.date} · ${x.items} item(s) · ${esc(x.city)}</span></div><b>${usd(x.total)}</b></div>`).join(''):'<p class="note">No orders yet.</p>'}`)}
+ <button class="btn" onclick="showOrders()">My orders</button> <button class="btn o" onclick="signOut()">Sign out</button>`)}
+async function showOrders(){
+ M('<h2 style="font-size:32px">Orders</h2><p class="note">Loading…</p>');
+ const {data:o,error}=await sb.from('orders').select('*').order('created_at',{ascending:false});
+ if(error)return M('<h2 style="font-size:32px">Orders</h2><p class="err">'+esc(error.message)+'</p>');
+ M(`<h2 style="font-size:32px">Orders</h2>${o.length?o.map(x=>`<div class="li"><div style="flex:1"><b>#${x.id.slice(0,8).toUpperCase()}</b><br><span class="note">${new Date(x.created_at).toLocaleDateString()} · ${x.items} item(s) · ${esc(x.city||'')}</span></div><b>${usd(Number(x.total))}</b></div>`).join(''):'<p class="note">No orders yet.</p>'}`)}
 
 /* checkout */
 function startCo(){if(!S.user)return openAuth(startCo);closeCart();S.co={step:1,ship:'s',a:{name:S.user.name,email:S.user.email||'',addr:'',city:'',zip:''}};coView()}
@@ -88,15 +97,21 @@ function coView(){const c=S.co,t=totals(c.ship);let b='';
  <div class="sum"><div class="t"><span>Total</span><span>${usd(+t.total.toFixed(2))}</span></div></div>
  <div style="display:flex;gap:8px;margin-top:12px">${c.step>1?'<button class="btn o" onclick="coBack()">Back</button>':''}<button class="btn" style="flex:1" onclick="coNext()">${c.step<3?'Continue':'Place order'}</button></div>`)}
 function coBack(){S.co.step--;coView()}
-function coNext(){const c=S.co,e=$('ce2');
+async function coNext(){const c=S.co,e=$('ce2');
  if(c.step===1){for(const k of['name','email','addr','city','zip'])c.a[k]=$('c_'+k).value.trim();
   if(Object.values(c.a).some(v=>!v)||!/^\S+@\S+\.\S+$/.test(c.a.email)){e.textContent='Please complete all fields with a valid email.';return}}
  if(c.step===3){const n=$('cn').value.replace(/\s/g,'');if(n.length<13||!/^\d\d\/\d\d$/.test($('ce').value)||$('cv').value.length<3){e.textContent='Enter valid card details.';return}
-  const t=totals(c.ship),id=Date.now().toString(36).toUpperCase().slice(-7),o=ls.g('ma_orders',[]);
-  o.unshift({id,total:+t.total.toFixed(2),items:Object.values(S.cart).reduce((a,b)=>a+b,0),city:c.a.city,date:new Date().toLocaleDateString()});ls.s('ma_orders',o);
+  const t=totals(c.ship);
+  const {data,error}=await sb.from('orders').insert({total:+t.total.toFixed(2),items:Object.values(S.cart).reduce((a,b)=>a+b,0),city:c.a.city}).select('id').single();
+  if(error){e.textContent='Could not save order: '+error.message;return}
+  const id=data.id.slice(0,8).toUpperCase();
   S.cart={};S.promo=null;save();draw();
   return M(`<div style="text-align:center;padding:20px 0"><div style="font-size:48px;color:var(--gold)">✓</div><h2 style="font-size:34px">Thank you, ${esc(c.a.name.split(' ')[0])}</h2><p>Order <b>#${id}</b> is confirmed. A receipt was sent to ${esc(c.a.email)}.</p><button class="btn" onclick="closeM()">Continue shopping</button></div>`)}
  c.step++;coView()}
 
 /* boot */
 $('hart').innerHTML=art({k:'watch'});syncAcct();draw();
+
+/* session: runs on load and after Google redirects back */
+sb.auth.getSession().then(({data})=>fromSession(data.session));
+sb.auth.onAuthStateChange((_e,s)=>fromSession(s));
