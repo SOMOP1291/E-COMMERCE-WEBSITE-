@@ -5,9 +5,6 @@ const sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{
   auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
 });
 
-const {data:{session}}=await sb.auth.getSession();
-if(!session){e.textContent='Your session expired. Please sign in again.';return}
-
 const P=[
 {id:1,n:"Meridian Automatic",c:"Watches",p:1250,r:4.9,k:"watch",a:["#25323f","#7e98b0"],t:"New",d:"39mm Swiss automatic, sapphire crystal, 80-hour power reserve."},
 {id:2,n:"Solène Chronograph",c:"Watches",p:1890,r:4.8,k:"watch",a:["#3a2a22","#c9915b"],t:"Limited",d:"Rose-gold chronograph with a hand-finished guilloché dial."},
@@ -106,6 +103,8 @@ async function coNext(){const c=S.co,e=$('ce2');
  if(c.step===1){for(const k of['name','email','addr','city','zip'])c.a[k]=$('c_'+k).value.trim();
   if(Object.values(c.a).some(v=>!v)||!/^\S+@\S+\.\S+$/.test(c.a.email)){e.textContent='Please complete all fields with a valid email.';return}}
  if(c.step===3){const n=$('cn').value.replace(/\s/g,'');if(n.length<13||!/^\d\d\/\d\d$/.test($('ce').value)||$('cv').value.length<3){e.textContent='Enter valid card details.';return}
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){e.textContent='Your session expired. Please sign in again.';return}
   const t=totals(c.ship);
   const {data,error}=await sb.from('orders').insert({total:+t.total.toFixed(2),items:Object.values(S.cart).reduce((a,b)=>a+b,0),city:c.a.city}).select('id').single();
   if(error){e.textContent='Could not save order: '+error.message;return}
@@ -120,4 +119,3 @@ $('hart').innerHTML=art({k:'watch'});syncAcct();draw();
 /* session: runs on load and after Google redirects back */
 sb.auth.getSession().then(({data})=>fromSession(data.session));
 sb.auth.onAuthStateChange((_e,s)=>fromSession(s));
-
