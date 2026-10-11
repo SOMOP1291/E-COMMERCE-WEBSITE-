@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maison Aurel — Fine Goods</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#ece4d6;--fg:#1a1815;--mut:#6f6a62;--card:#fff;--line:#e6e0d5;--gold:#a8843f;--ink:#1a1815;--on:#faf8f4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1117;--fg:#f3efe7;--mut:#a39d92;--card:#1b1917;--line:#2e2a25;--gold:#c9a45c;--ink:#f3efe7;--on:#121110}}
+:root[data-theme="dark"]{--bg:#0d1117;--fg:#f3efe7;--mut:#a39d92;--card:#1b1917;--line:#2e2a25;--gold:#c9a45c;--ink:#f3efe7;--on:#121110}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 Inter,system-ui,sans-serif}
+h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;margin:0}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:14px;height:64px}.logo{font-size:26px;letter-spacing:.04em;margin-right:auto}.logo b{color:var(--gold)}
+.ib{background:none;border:1px solid var(--line);border-radius:99px;height:38px;min-width:38px;padding:0 12px;display:inline-flex;align-items:center;gap:6px}
+.ib:hover{border-color:var(--gold)}.badge{background:var(--gold);color:#fff;border-radius:99px;font-size:11px;padding:1px 7px}
+.hero{padding:72px 0 56px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,76px);line-height:1.02}.hero h1 em{color:var(--gold)}
+.hero p{color:var(--mut);max-width:46ch;font-size:17px}
+.btn{background:var(--ink);color:var(--on);border:0;border-radius:99px;padding:12px 24px;font-weight:500}.btn:hover{opacity:.88}
+.btn.o{background:none;color:var(--fg);border:1px solid var(--line)}.btn[disabled]{opacity:.5}
+.heroart{aspect-ratio:1;border-radius:24px;background:linear-gradient(135deg,#2b2620,#a8843f);display:grid;place-items:center}
+.heroart svg{width:62%}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-block:1px solid var(--line);padding:18px 0;color:var(--mut);font-size:13px;text-align:center}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:44px 0 20px}
+.chip{border:1px solid var(--line);background:none;border-radius:99px;padding:7px 16px}.chip.on{background:var(--ink);color:var(--on);border-color:var(--ink)}
+.bar input,.bar select,.f input,.f select{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;width:100%}
+.bar input{width:200px}.bar select{width:auto}.sp{margin-left:auto;display:flex;gap:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;padding-bottom:70px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,0,0,.12)}
+.art{aspect-ratio:1/1;display:grid;place-items:center;position:relative;cursor:pointer}.art svg{width:54%}
+.tag{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.45);color:#fff;font-size:11px;border-radius:99px;padding:2px 10px}
+.heart{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.35);border:0;color:#fff;width:34px;height:34px;border-radius:50%;font-size:16px}.heart.on{color:#ff7a8a}
+.info{padding:14px 16px 16px}.info small{color:var(--mut)}.row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}.price{font-weight:600}
+.mini{padding:7px 14px;font-size:13px}
+.story{background:var(--card);border-block:1px solid var(--line);padding:64px 0;text-align:center}.story h2{font-size:40px;margin-bottom:10px}.story p{color:var(--mut);max-width:60ch;margin:0 auto}
+footer{padding:36px 0;color:var(--mut);font-size:13px;text-align:center}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}.ov.show{display:flex}
+.modal{background:var(--bg);border:1px solid var(--line);border-radius:20px;width:min(560px,100%);max-height:92vh;overflow:auto;padding:26px;position:relative}
+.modal.w{width:min(820px,100%)}.x{position:absolute;top:12px;right:14px;border:0;background:none;font-size:24px}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--bg);border-left:1px solid var(--line);z-index:60;transform:translateX(100%);transition:.3s;display:flex;flex-direction:column;padding:20px}.drawer.show{transform:none}
+.dl{flex:1;overflow:auto;margin:14px 0}.li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.th{width:60px;height:60px;border-radius:12px;flex:none}.q{display:inline-flex;border:1px solid var(--line);border-radius:99px;align-items:center}.q button{border:0;background:none;width:28px;height:28px}
+.sum div{display:flex;justify-content:space-between;padding:3px 0;color:var(--mut)}.sum .t{color:var(--fg);font-weight:600;font-size:18px;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.f{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin:14px 0}.f .full{grid-column:1/-1}.f label{font-size:12px;color:var(--mut);display:block;margin-bottom:3px}
+.steps{display:flex;gap:8px;margin:14px 0}.steps span{flex:1;height:4px;border-radius:9px;background:var(--line)}.steps span.on{background:var(--gold)}
+.opt{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;justify-content:space-between;margin-bottom:8px;cursor:pointer}.opt.on{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,transparent)}
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:24px}.pd .art{border-radius:16px;cursor:default}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(90px);background:var(--ink);color:var(--on);padding:10px 20px;border-radius:99px;z-index:80;transition:.3s}.toast.show{transform:translateX(-50%)}
+.note{font-size:12px;color:var(--mut)}.err{color:#d6455a;font-size:13px;min-height:18px}
+@media(max-width:720px){.hero,.pd{grid-template-columns:1fr}.hero{padding-top:36px}.sp{margin-left:0}.perks{grid-template-columns:1fr}}
+</style></head><body>
+<header><div class="wrap nav">
+<div class="serif logo">Maison <b>Aurel</b></div>
+<button class="ib" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+<button class="ib" onclick="showWish()">♡ <span class="badge" id="wc">0</span></button>
+<button class="ib" id="acct" onclick="openAcct()">Sign in</button>
+<button class="ib" onclick="openCart()">Bag <span class="badge" id="cc">0</span></button>
+</div></header>
+
+<main>
+<section class="wrap hero">
+<div><p class="note" style="letter-spacing:.2em;text-transform:uppercase">Autumn Collection 2026</p>
+<h1>Objects made to be <em>kept</em>.</h1>
+<p>Considered watches, leather goods, fragrance and writing instruments — crafted in small batches, shipped insured, guaranteed for life.</p>
+<p><button class="btn" onclick="document.getElementById('shop').scrollIntoView()">Shop the collection</button>
+<button class="btn o" onclick="openAuth()" style="margin-left:8px">Join — 20% off first order</button></p></div>
+<div class="heroart" id="hart"></div>
+</section>
+<div class="wrap perks"><div>Complimentary shipping over $250</div><div>30-day returns · Lifetime warranty</div><div>Gift wrapping & engraving</div></div>
+
+<section class="wrap" id="shop">
+<div class="bar" id="chips"></div>
+<div class="bar" style="margin-top:0"><input id="q" placeholder="Search…" oninput="S.q=this.value;draw()">
+<div class="sp"><select onchange="S.sort=this.value;draw()"><option value="f">Featured</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option><option value="r">Top rated</option></select></div></div>
+<div class="grid" id="grid"></div>
+</section>
+
+<section class="story"><div class="wrap"><h2>The Aurel promise</h2><p>Every piece is made by named artisans, numbered, and serviced for life. Use code <b>AUREL10</b> for 10% off, or sign in and unlock <b>VIP20</b>.</p></div></section>
+</main>
+<footer>© 2026 Maison Aurel · Demo storefront — no real payments are processed.</footer>
+
+<div class="ov" id="ov" onclick="if(event.target===this)closeM()"><div class="modal" id="modal"></div></div>
+<div class="drawer" id="drawer"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const P=[
+{id:1,n:"Meridian Automatic",c:"Watches",p:1250,r:4.9,k:"watch",a:["#25323f","#7e98b0"],t:"New",d:"39mm Swiss automatic, sapphire crystal, 80-hour power reserve."},
+{id:2,n:"Solène Chronograph",c:"Watches",p:1890,r:4.8,k:"watch",a:["#3a2a22","#c9915b"],t:"Limited",d:"Rose-gold chronograph with a hand-finished guilloché dial."},
+{id:3,n:"Voyageur Weekender",c:"Leather",p:980,r:4.9,k:"bag",a:["#3b2a1d","#a8744a"],t:"Bestseller",d:"Full-grain Tuscan leather, brass hardware, fits a carry-on."},
+{id:4,n:"Atelier Tote",c:"Leather",p:640,r:4.7,k:"bag",a:["#2a2f2a","#7d8f78"],t:"",d:"Structured everyday tote with a suede-lined interior."},
+{id:5,n:"Cordovan Card Holder",c:"Leather",p:145,r:4.8,k:"card",a:["#4a1f26","#a9505b"],t:"",d:"Shell cordovan, hand-burnished edges, four-card capacity."},
+{id:6,n:"Noir Bois Parfum",c:"Fragrance",p:210,r:4.9,k:"scent",a:["#1d1d24","#6a5d8f"],t:"New",d:"Oud, vetiver and smoked cedar. 50ml eau de parfum."},
+{id:7,n:"Ambre Gris Candle",c:"Fragrance",p:78,r:4.6,k:"candle",a:["#3a342a","#d1b27a"],t:"",d:"Hand-poured soy wax, 60-hour burn, ceramic vessel."},
+{id:8,n:"Linea Fountain Pen",c:"Writing",p:320,r:4.8,k:"pen",a:["#1c2a2e","#4f8f95"],t:"Bestseller",d:"Turned resin barrel, 18k gold nib, piston filler."}];
+const SH={watch:'<circle cx="50" cy="50" r="26"/><path d="M50 50V33M50 50l11 6M40 20h20M40 80h20"/>',bag:'<rect x="22" y="40" width="56" height="38" rx="7"/><path d="M38 40v-8a12 12 0 0 1 24 0v8"/>',card:'<rect x="20" y="32" width="60" height="38" rx="6"/><path d="M20 46h60M30 58h14"/>',scent:'<rect x="33" y="44" width="34" height="36" rx="7"/><rect x="43" y="28" width="14" height="16" rx="2"/>',candle:'<rect x="32" y="46" width="36" height="32" rx="5"/><path d="M50 40c-6-6 0-10 0-16 6 5 6 10 0 16z"/>',pen:'<path d="M28 76 66 30l7 6-38 46zM28 76l-2 8 8-2"/>'};
+const art=(p,w)=>`<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".92" ${w?'':''}>${SH[p.k]}</svg>`;
+const grad=p=>`linear-gradient(135deg,${p.a[0]},${p.a[1]})`;
+const $=id=>document.getElementById(id), usd=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ls={g(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const S={cat:'All',q:'',sort:'f',cart:ls.g('ma_cart',{}),wish:ls.g('ma_wish',[]),user:ls.g('ma_user',null),promo:null,co:null};
+const save=()=>{ls.s('ma_cart',S.cart);ls.s('ma_wish',S.wish);ls.s('ma_user',S.user)};
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('show'),2200)}
+function toggleTheme(){const r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'}
+
+/* catalog */
+function draw(){
+ const cats=['All',...new Set(P.map(p=>p.c))];
+ $('chips').innerHTML=cats.map(c=>`<button class="chip ${c===S.cat?'on':''}" onclick="S.cat='${c}';draw()">${c}</button>`).join('');
+ let l=P.filter(p=>(S.cat==='All'||p.c===S.cat)&&(p.n+p.c+p.d).toLowerCase().includes(S.q.toLowerCase()));
+ if(S.sort==='lo')l.sort((a,b)=>a.p-b.p);if(S.sort==='hi')l.sort((a,b)=>b.p-a.p);if(S.sort==='r')l.sort((a,b)=>b.r-a.r);
+ $('grid').innerHTML=l.map(p=>`<div class="card"><div class="art" style="background:${grad(p)}" onclick="quick(${p.id})">${art(p)}${p.t?`<span class="tag">${p.t}</span>`:''}
+ <button class="heart ${S.wish.includes(p.id)?'on':''}" onclick="event.stopPropagation();wish(${p.id})" aria-label="Wishlist">♥</button></div>
+ <div class="info"><small>${p.c} · ★ ${p.r}</small><h3 style="font-size:22px">${p.n}</h3>
+ <div class="row"><span class="price">${usd(p.p)}</span><button class="btn mini" onclick="add(${p.id})">Add to bag</button></div></div></div>`).join('')||'<p class="note">No pieces match your search.</p>';
+ $('wc').textContent=S.wish.length;$('cc').textContent=Object.values(S.cart).reduce((a,b)=>a+b,0);
+}
+function wish(id){const i=S.wish.indexOf(id);i<0?S.wish.push(id):S.wish.splice(i,1);save();draw()}
+function showWish(){const l=P.filter(p=>S.wish.includes(p.id));
+ M(`<h2 style="font-size:32px">Wishlist</h2>${l.length?l.map(p=>`<div class="li"><div class="th" style="background:${grad(p)}"></div><div style="flex:1"><b>${p.n}</b><br><span class="note">${usd(p.p)}</span></div><button class="btn mini" onclick="add(${p.id});closeM()">Add</button></div>`).join(''):'<p class="note">Tap the heart on any piece to save it here.</p>'}`)}
+function quick(id){const p=P.find(x=>x.id===id);
+ M(`<div class="pd"><div class="art" style="background:${grad(p)}">${art(p)}</div><div><small class="note">${p.c} · ★ ${p.r}</small><h2 style="font-size:34px">${p.n}</h2><p>${p.d}</p><p class="serif" style="font-size:28px">${usd(p.p)}</p>
+ <p class="note">Free insured shipping over $250 · 30-day returns · Lifetime warranty</p><button class="btn" onclick="add(${p.id});closeM()">Add to bag</button> <button class="btn o" onclick="wish(${p.id});quick(${p.id})">${S.wish.includes(p.id)?'Saved ♥':'Save ♡'}</button></div></div>`,1)}
+
+/* cart */
+function add(id){S.cart[id]=(S.cart[id]||0)+1;save();draw();toast('Added to your bag');}
+function qty(id,d){S.cart[id]=(S.cart[id]||0)+d;if(S.cart[id]<=0)delete S.cart[id];save();draw();renderCart()}
+const PROMOS={AUREL10:{pct:.1,msg:'10% off applied'},VIP20:{pct:.2,msg:'VIP 20% off applied',vip:1}};
+function totals(ship){const sub=Object.entries(S.cart).reduce((a,[id,q])=>a+P.find(p=>p.id==id).p*q,0);
+ const disc=S.promo?sub*PROMOS[S.promo].pct:0;const sh=sub===0?0:ship==='x'?24:(sub-disc>=250?0:9);const tax=(sub-disc)*.08;
+ return{sub,disc,sh,tax,total:sub-disc+sh+tax}}
+function renderCart(){const items=Object.entries(S.cart),t=totals(S.co&&S.co.ship);
+ $('drawer').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:30px">Your bag</h2><button class="x" style="position:static" onclick="closeCart()">×</button></div>
+ <div class="dl">${items.length?items.map(([id,q])=>{const p=P.find(x=>x.id==id);return`<div class="li"><div class="th" style="background:${grad(p)}"></div><div style="flex:1"><b>${p.n}</b><br><span class="note">${usd(p.p)}</span><br><span class="q"><button onclick="qty(${id},-1)">−</button><span style="min-width:20px;text-align:center">${q}</span><button onclick="qty(${id},1)">+</button></span></div><b>${usd(p.p*q)}</b></div>`}).join(''):'<p class="note">Your bag is empty.</p>'}</div>
+ <div class="f" style="grid-template-columns:1fr auto;margin:0 0 10px"><input id="pc" placeholder="Promo code" value="${S.promo||''}"><button class="btn o mini" onclick="applyPromo()">Apply</button></div><div class="err" id="pe"></div>
+ <div class="sum"><div><span>Subtotal</span><span>${usd(t.sub)}</span></div>${t.disc?`<div><span>Discount</span><span>−${usd(+t.disc.toFixed(2))}</span></div>`:''}<div><span>Shipping</span><span>${t.sh?usd(t.sh):'Free'}</span></div><div><span>Est. tax</span><span>${usd(+t.tax.toFixed(2))}</span></div><div class="t"><span>Total</span><span>${usd(+t.total.toFixed(2))}</span></div></div>
+ <button class="btn" style="margin-top:14px" ${items.length?'':'disabled'} onclick="startCo()">Checkout</button>`}
+function applyPromo(){const c=$('pc').value.trim().toUpperCase();if(!c){S.promo=null;return renderCart()}
+ const p=PROMOS[c];if(!p){$('pe').textContent='Invalid code.';return}if(p.vip&&!S.user){$('pe').textContent='Sign in to use VIP20.';return}S.promo=c;renderCart();toast(p.msg)}
+function openCart(){renderCart();$('drawer').classList.add('show')}function closeCart(){$('drawer').classList.remove('show')}
+
+/* modal */
+function M(h,w){$('modal').className='modal'+(w?' w':'');$('modal').innerHTML='<button class="x" onclick="closeM()">×</button>'+h;$('ov').classList.add('show')}
+function closeM(){$('ov').classList.remove('show')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeM();closeCart()}});
+
+/* auth */
+function openAuth(next){S.next=next;M(`<h2 style="font-size:32px">Welcome to Maison Aurel</h2><p class="note">Sign in to save your bag, track orders and unlock VIP20.</p>
+ <button class="btn" style="width:100%;margin:10px 0" onclick="signIn()">Continue with your account</button>
+ <p class="note" style="text-align:center">or continue as a guest</p>
+ <div class="f"><div class="full"><label>Name</label><input id="gn"></div><div class="full"><label>Email</label><input id="ge" type="email"></div></div><div class="err" id="ae"></div>
+ <button class="btn o" style="width:100%" onclick="guest()">Continue as guest</button>`)}
+async function signIn(){let u=null;
+ try{const U=await claude.use('user');if(U){const m=await U.me();u={name:m.name||'Member',email:m.email||'',vip:1}}}catch(e){}
+ if(!u){$('ae').textContent='Account sign-in is unavailable here — use guest checkout below.';return}
+ setUser(u)}
+function guest(){const n=$('gn').value.trim(),e=$('ge').value.trim();if(!n||!/^\S+@\S+\.\S+$/.test(e)){$('ae').textContent='Enter a name and valid email.';return}setUser({name:n,email:e,vip:1})}
+function setUser(u){S.user=u;save();syncAcct();closeM();toast('Welcome, '+u.name.split(' ')[0]);if(S.next){const f=S.next;S.next=null;f()}}
+function syncAcct(){$('acct').textContent=S.user?S.user.name.split(' ')[0]:'Sign in'}
+function openAcct(){if(!S.user)return openAuth();
+ M(`<h2 style="font-size:32px">${esc(S.user.name)}</h2><p class="note">${esc(S.user.email||'Signed in')}</p><p>VIP perk unlocked: code <b>VIP20</b> (20% off).</p>
+ <button class="btn" onclick="showOrders()">My orders</button> <button class="btn o" onclick="S.user=null;save();syncAcct();closeM();toast('Signed out')">Sign out</button>`)}
+function showOrders(){const o=ls.g('ma_orders',[]);
+ M(`<h2 style="font-size:32px">Orders</h2>${o.length?o.map(x=>`<div class="li"><div style="flex:1"><b>#${x.id}</b><br><span class="note">${x.date} · ${x.items} item(s) · ${esc(x.city)}</span></div><b>${usd(x.total)}</b></div>`).join(''):'<p class="note">No orders yet.</p>'}`)}
+
+/* checkout */
+function startCo(){if(!S.user)return openAuth(startCo);closeCart();S.co={step:1,ship:'s',a:{name:S.user.name,email:S.user.email||'',addr:'',city:'',zip:''}};coView()}
+function coView(){const c=S.co,t=totals(c.ship);let b='';
+ if(c.step===1)b=`<div class="f">${[['name','Full name',1],['email','Email',1],['addr','Address',1],['city','City'],['zip','Postal code']].map(([k,l,f])=>`<div class="${f?'full':''}"><label>${l}</label><input id="c_${k}" value="${esc(c.a[k])}"></div>`).join('')}</div>`;
+ if(c.step===2)b=[['s','Standard · 3–5 days',t.sub-t.disc>=250?'Free':'$9'],['x','Express · next day','$24']].map(([k,l,p])=>`<div class="opt ${c.ship===k?'on':''}" onclick="S.co.ship='${k}';coView()"><span>${l}</span><b>${p}</b></div>`).join('');
+ if(c.step===3)b=`<div class="f"><div class="full"><label>Card number</label><input id="cn" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242" oninput="this.value=this.value.replace(/\\D/g,'').replace(/(.{4})/g,'$1 ').trim()"></div><div><label>Expiry</label><input id="ce" placeholder="MM/YY" maxlength="5"></div><div><label>CVC</label><input id="cv" maxlength="4" inputmode="numeric"></div></div><p class="note">Demo checkout — nothing is charged and card data is never stored.</p>`;
+ M(`<h2 style="font-size:32px">Checkout</h2><div class="steps">${[1,2,3].map(i=>`<span class="${i<=c.step?'on':''}"></span>`).join('')}</div>${b}<div class="err" id="ce2"></div>
+ <div class="sum"><div class="t"><span>Total</span><span>${usd(+t.total.toFixed(2))}</span></div></div>
+ <div style="display:flex;gap:8px;margin-top:12px">${c.step>1?'<button class="btn o" onclick="coBack()">Back</button>':''}<button class="btn" style="flex:1" onclick="coNext()">${c.step<3?'Continue':'Place order'}</button></div>`)}
+function coBack(){S.co.step--;coView()}
+function coNext(){const c=S.co,e=$('ce2');
+ if(c.step===1){for(const k of['name','email','addr','city','zip'])c.a[k]=$('c_'+k).value.trim();
+  if(Object.values(c.a).some(v=>!v)||!/^\S+@\S+\.\S+$/.test(c.a.email)){e.textContent='Please complete all fields with a valid email.';return}}
+ if(c.step===3){const n=$('cn').value.replace(/\s/g,'');if(n.length<13||!/^\d\d\/\d\d$/.test($('ce').value)||$('cv').value.length<3){e.textContent='Enter valid card details.';return}
+  const t=totals(c.ship),id=Date.now().toString(36).toUpperCase().slice(-7),o=ls.g('ma_orders',[]);
+  o.unshift({id,total:+t.total.toFixed(2),items:Object.values(S.cart).reduce((a,b)=>a+b,0),city:c.a.city,date:new Date().toLocaleDateString()});ls.s('ma_orders',o);
+  S.cart={};S.promo=null;save();draw();
+  return M(`<div style="text-align:center;padding:20px 0"><div style="font-size:48px;color:var(--gold)">✓</div><h2 style="font-size:34px">Thank you, ${esc(c.a.name.split(' ')[0])}</h2><p>Order <b>#${id}</b> is confirmed. A receipt was sent to ${esc(c.a.email)}.</p><button class="btn" onclick="closeM()">Continue shopping</button></div>`)}
+ c.step++;coView()}
+
+/* boot */
+$('hart').innerHTML=art({k:'watch'});syncAcct();draw();
+</script></body></html>

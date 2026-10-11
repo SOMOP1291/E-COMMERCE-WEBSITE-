@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maison Aurel — Fine Goods</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css"></head><body>
+<header><div class="wrap nav">
+<div class="serif logo">Maison <b>Aurel</b></div>
+<button class="ib" onclick="toggleTheme()" aria-label="Toggle theme">◐</button>
+<button class="ib" onclick="showWish()">♡ <span class="badge" id="wc">0</span></button>
+<button class="ib" id="acct" onclick="openAcct()">Sign in</button>
+<button class="ib" onclick="openCart()">Bag <span class="badge" id="cc">0</span></button>
+</div></header>
+
+<main>
+<section class="wrap hero">
+<div><p class="note" style="letter-spacing:.2em;text-transform:uppercase">Autumn Collection 2026</p>
+<h1>Objects made to be <em>kept</em>.</h1>
+<p>Considered watches, leather goods, fragrance and writing instruments — crafted in small batches, shipped insured, guaranteed for life.</p>
+<p><button class="btn" onclick="document.getElementById('shop').scrollIntoView()">Shop the collection</button>
+<button class="btn o" onclick="openAuth()" style="margin-left:8px">Join — 20% off first order</button></p></div>
+<div class="heroart" id="hart"></div>
+</section>
+<div class="wrap perks"><div>Complimentary shipping over $250</div><div>30-day returns · Lifetime warranty</div><div>Gift wrapping & engraving</div></div>
+
+<section class="wrap" id="shop">
+<div class="bar" id="chips"></div>
+<div class="bar" style="margin-top:0"><input id="q" placeholder="Search…" oninput="S.q=this.value;draw()">
+<div class="sp"><select onchange="S.sort=this.value;draw()"><option value="f">Featured</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option><option value="r">Top rated</option></select></div></div>
+<div class="grid" id="grid"></div>
+</section>
+
+<section class="story"><div class="wrap"><h2>The Aurel promise</h2><p>Every piece is made by named artisans, numbered, and serviced for life. Use code <b>AUREL10</b> for 10% off, or sign in and unlock <b>VIP20</b>.</p></div></section>
+</main>
+<footer>© 2026 Maison Aurel · Demo storefront — no real payments are processed.</footer>
+
+<div class="ov" id="ov" onclick="if(event.target===this)closeM()"><div class="modal" id="modal"></div></div>
+<div class="drawer" id="drawer"></div>
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script></body></html>
