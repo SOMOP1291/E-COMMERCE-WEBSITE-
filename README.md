@@ -99,7 +99,7 @@ Follow these steps to run the project locally.
 git clone YOUR_REPOSITORY_URL
 ```
 
-Replace `YOUR_REPOSITORY_URL` with your GitHub repository URL.
+Replace `https://github.com/SOMOP1291/E-COMMERCE-WEBSITE-.git` with your GitHub repository URL.
 
 ### 2. Navigate to the Project
 
